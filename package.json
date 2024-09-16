@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "start": "prettier . --write"
+  },
+  "devDependencies": {
+    "prettier": "3.3.3"
+  }
+}
