@@ -409,4 +409,7 @@ section.center:hover .myName {
   .Alltask {
     transform: translateX(115%);
   }
+  .add_date {
+    right: 150px;
+  }
 }/*# sourceMappingURL=index.css.map */

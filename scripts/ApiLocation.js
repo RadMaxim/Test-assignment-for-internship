@@ -5,6 +5,8 @@ const getCurrentCity = async () => {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
     const url = `${LOCBases}?lat=${latitude}&lon=${longitude}`;
+    console.log(url);
+    
     const data = await fetch(url, {
       method: "GET",
       headers: {
