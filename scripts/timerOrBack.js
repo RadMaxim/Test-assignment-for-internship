@@ -10,7 +10,6 @@ function getFormattedTime() {
   const now = new Date();
   const hours = now.getHours();
 
-  
   if (current_mode !== timeOfDay(hours, list_time)) {
     current_mode = timeOfDay(hours, list_time);
     document.querySelector("body").className = current_mode;

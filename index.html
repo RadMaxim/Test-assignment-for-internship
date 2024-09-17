@@ -42,7 +42,8 @@
         <section class="date">
           <div class="city_weather">
             <div id="city">Minsk</div>
-            <div id="weather">-19</div>
+            <img id="state_weather">
+            <div id="weather">0</div>
           </div>
 
           <div class="add_date">
@@ -94,20 +95,23 @@
         </p>
         <p class="myName">Radchuk Maxim</p>
       </section>
-
       <section class="tasks">
         <label for="task">Tasks</label>
         <input type="checkbox" id="task" />
         <section class="Alltask">
           <div class="Alltask_container"></div>
+          <div class="EmptyListOfTasks">
+            <p>Add a taks to get started</p>
+            <button>Task</button>
+          </div>
           <div class="add_task">
             <input type="text" placeholder="New Task" id="addTask" />
           </div>
         </section>
       </section>
     </footer>
-    <script src="./tasks.js"></script>
-    <script type="module" src="./timerOrBack.js"></script>
-    <script type="module" src="index.js"></script>
-  </body>
+    <script type="module" src="./scripts/ApiLocation.js"></script>
+    <script type="module" src="./scripts/ApiWeather.js"></script>
+    <script defer src="./scripts/tasks.js"></script>
+    <script type="module" src="./scripts/timerOrBack.js"></script>  </body>
 </html>

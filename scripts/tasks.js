@@ -27,19 +27,14 @@ const showAllTask = (arr) => {
   }, "");
   Alltask_container.innerHTML = divs;
 };
-// const allRemove = document.getElementsByClassName("removeTask");
-// console.log(allRemove);
-// for (let index = 0; index < Array.from(allRemove).length; index++) {
-//   console.log(allRemove[index]);
+window.addEventListener("load", () => {
+  document.querySelectorAll(".removeTask").forEach((elem, index) => {
+    elem.addEventListener("click", (e) => {
+      elem.parentElement.remove();
+      list_tasks.splice(index, 1);
+      console.log(list_tasks);
 
-// }
-////////////////////////////////////////////////////
-
-Array.from(allRemove).forEach((elem) => {
-  console.log(elem);
-  console.log("ef");
-
-  elem.addEventListener("onClick", (e) => {
-    console.log(e);
+      localStorage.setItem("tasks", JSON.stringify(list_tasks));
+    });
   });
 });

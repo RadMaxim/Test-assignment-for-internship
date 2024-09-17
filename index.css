@@ -1,4 +1,3 @@
-@charset "UTF-8";
 * {
   font-family: mainFont;
   box-sizing: border-box;
@@ -51,8 +50,7 @@ section {
 }
 
 header,
-main,
-footer {
+main {
   padding: 0 15px;
 }
 
@@ -66,6 +64,7 @@ body {
 
 header {
   color: rgb(217, 217, 217);
+  font-weight: 800;
   grid-area: header;
   display: flex;
   justify-content: center;
@@ -111,15 +110,25 @@ main #timer {
 }
 
 footer {
+  font-weight: 800;
   grid-area: footer;
   color: rgb(217, 217, 217);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  display: grid;
+  grid-template-columns: 25vw 50vw 25vw;
+  grid-template-rows: 100%;
+  grid-template-areas: "setting center tasks";
 }
 
 .tasks {
+  grid-area: tasks;
   position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 15px;
 }
 .tasks label[for=task] {
   cursor: pointer;
@@ -148,6 +157,31 @@ footer {
   overflow-x: hidden;
   overflow-y: scroll;
 }
+.tasks .Alltask .EmptyListOfTasks {
+  display: none;
+}
+.tasks .Alltask .Alltask_container:not(:has(div)) ~ .EmptyListOfTasks {
+  display: block;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 10px;
+}
+.tasks .Alltask .Alltask_container:not(:has(div)) ~ .EmptyListOfTasks button {
+  background-color: #000000;
+  color: white;
+  padding: 5px 20px;
+  cursor: pointer;
+  transition: 1s background-color ease, 0.2s color ease-in;
+  border: none;
+  outline: none;
+}
+.tasks .Alltask .Alltask_container:not(:has(div)) ~ .EmptyListOfTasks button:hover {
+  background-color: white;
+  color: black;
+}
 .tasks input[type=checkbox] {
   display: none;
 }
@@ -156,6 +190,14 @@ footer {
   opacity: 1;
   top: -320px;
   left: -230px;
+}
+
+.setting {
+  grid-area: setting;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 15px;
 }
 
 nav {
@@ -173,7 +215,7 @@ nav {
 .add_date {
   display: none;
   position: absolute;
-  right: 120px;
+  right: 200px;
 }
 
 .city_weather {
@@ -227,6 +269,7 @@ nav {
 }
 
 .center {
+  grid-area: center;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -272,12 +315,14 @@ section.center:hover .myName {
   color: black;
   font-size: 14px !important;
   text-wrap: balance;
+  -webkit-hyphens: auto;
+          hyphens: auto;
 }
-.task p:hover ~ .removeTask {
+.task:hover .removeTask {
   opacity: 1;
   cursor: pointer;
 }
-.task p:hover ~ .removeTask svg {
+.task:hover .removeTask svg {
   fill: rgba(0, 0, 0, 0.703);
 }
 .task input {
@@ -286,7 +331,7 @@ section.center:hover .myName {
 }
 .task input[type=checkbox]:checked ~ p {
   text-decoration: line-through;
-  text-decoration-color: rgba(0, 0, 0, 0.793); /*  Устанавливаем цвет линии в красный */
+  text-decoration-color: rgba(0, 0, 0, 0.793);
   text-decoration-thickness: 2px;
   color: rgba(0, 0, 0, 0.21);
 }
@@ -314,4 +359,54 @@ section.center:hover .myName {
   text-indent: 30px;
   color: rgb(0, 0, 0);
   font-size: 1.3em;
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    display: grid;
+    grid-template-columns: 20vw 60vw 20vw;
+    grid-template-rows: 10vh 70vh 20vh;
+  }
+  main {
+    gap: 10px;
+  }
+  main div:nth-of-type(2), main div:nth-of-type(3) {
+    font-size: 18px;
+    text-wrap: balance;
+    text-align: center;
+  }
+  main div:nth-of-type(4) {
+    width: 60%;
+  }
+  main div:nth-of-type(4) input {
+    width: 100%;
+    height: 30px;
+    font-size: 30px;
+  }
+  main #timer {
+    font-size: 5em;
+  }
+  footer {
+    padding: 10px;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+    grid-template-areas: "top top" "left right";
+    row-gap: 10px;
+  }
+  footer .setting {
+    grid-area: right;
+  }
+  footer .tasks {
+    grid-area: left;
+  }
+  footer .center {
+    grid-area: top;
+    padding: 10px;
+  }
+  footer .setting, footer .tasks, footer .center {
+    text-align: center;
+  }
+  .Alltask {
+    transform: translateX(115%);
+  }
 }/*# sourceMappingURL=index.css.map */

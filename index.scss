@@ -7,7 +7,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  
+
   user-select: none;
 }
 /* width */
@@ -17,21 +17,22 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px rgb(184, 184, 184); 
+  box-shadow: inset 0 0 5px rgb(184, 184, 184);
   border-radius: 10px;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(151, 151, 151); 
+  background: rgb(151, 151, 151);
   border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #000000; 
+  background: #000000;
 }
-$unActive:rgb(217, 217, 217);
+$unActive: rgb(217, 217, 217);
+$weight: 800;
 svg {
   fill: white;
   width: 28px;
@@ -49,8 +50,7 @@ section {
   column-gap: 30px;
 }
 header,
-main,
-footer {
+main {
   padding: 0 15px;
 }
 body {
@@ -62,6 +62,7 @@ body {
 }
 header {
   color: $unActive;
+  font-weight: $weight;
   grid-area: header;
   @include positionElement(center, center);
 }
@@ -74,7 +75,6 @@ main {
     font-size: 36px;
     color: white !important;
     font-weight: 700 !important;
-
   }
   div:nth-of-type(3) {
     font-size: 32px;
@@ -102,21 +102,28 @@ main {
   }
 }
 footer {
+  font-weight: $weight;
   grid-area: footer;
   color: $unActive;
   @include positionElement(space-between, center);
+  display: grid;
+  grid-template-columns: 25vw 50vw 25vw;
+  grid-template-rows: 100%;
+  grid-template-areas: "setting center tasks";
 }
 .tasks {
+  grid-area: tasks;
   position: relative;
+  @include positionElement(flex-end,center);
+  padding-right: 15px;
   label[for="task"] {
     cursor: pointer;
     &:hover {
       color: white;
     }
   }
+  
   .Alltask {
-   
-   
     border-radius: 10px;
     transition:
       max-height 0.5s ease,
@@ -132,21 +139,42 @@ footer {
     flex-direction: column;
     gap: 20px;
     padding: 5px;
-    
-    .Alltask_container{
+
+    .Alltask_container {
       width: 100%;
       max-height: 300px;
       overflow-x: hidden;
-      overflow-y:scroll;
-     
+      overflow-y: scroll;
     }
-
-
+    .EmptyListOfTasks {
+      display: none;
+    }
+    .Alltask_container:not(:has(div)) ~ .EmptyListOfTasks {
+      display: block;
+      color: black;
+      @include positionElement(center, center);
+      flex-direction: column;
+      row-gap: 10px;
+      button {
+        background-color: #000000;
+        color: white;
+        padding: 5px 20px;
+        cursor: pointer;
+        transition:
+          1s background-color ease,
+          0.2s color ease-in;
+        border: none;
+        outline: none;
+        &:hover {
+          background-color: white;
+          color: black;
+        }
+      }
+    }
   }
 
   input[type="checkbox"] {
     display: none;
-    
   }
   input[type="checkbox"]:checked ~ .Alltask {
     transition: 0.5s ease;
@@ -155,7 +183,11 @@ footer {
     left: -230px;
   }
 }
-
+.setting{
+  grid-area: setting;
+  @include positionElement(flex-start,center);
+  padding-left: 15px;
+}
 nav {
   @include positionElement(space-between, center);
   height: 60%;
@@ -167,7 +199,7 @@ nav {
 .add_date {
   display: none;
   position: absolute;
-  right: 120px;
+  right: 200px;
 }
 .city_weather {
   @include positionElement(center, center);
@@ -212,11 +244,11 @@ nav {
     &:hover {
       color: white;
       cursor: pointer;
-      
     }
   }
 }
 .center {
+  grid-area: center;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -242,46 +274,48 @@ section.center:hover .myName {
   transition: 0.5s;
 }
 .task {
-display: grid;
+  display: grid;
   grid-template-columns: 10% 70% 10%;
   grid-template-rows: auto;
-  grid-template-areas: "input p button" ;
+  grid-template-areas: "input p button";
   min-height: 40px;
   column-gap: 5px;
   row-gap: 5px;
   align-items: center;
-  p{
+  p {
     grid-area: p;
     color: black;
     font-size: 14px !important;
     text-wrap: balance;
-    
-    &:hover ~ .removeTask{
-      opacity: 1;
-      cursor: pointer;
-      svg{
-        fill: rgba(0, 0, 0, 0.703);
-      }
-    
-
+    hyphens: auto;
+  }
+  &:hover .removeTask {
+    opacity: 1;
+    cursor: pointer;
+    svg {
+      fill: rgba(0, 0, 0, 0.703);
     }
   }
-  input{
+  input {
     display: block !important;
     grid-area: input;
   }
-  input[type="checkbox"]:checked ~ p{
+  input[type="checkbox"]:checked ~ p {
     text-decoration: line-through;
-    text-decoration-color: rgba(0, 0, 0, 0.793); /*  Устанавливаем цвет линии в красный */
+    text-decoration-color: rgba(
+      0,
+      0,
+      0,
+      0.793
+    );
     text-decoration-thickness: 2px;
     color: rgba(0, 0, 0, 0.21);
   }
-  button.removeTask{
+  button.removeTask {
     opacity: 0;
     grid-area: button;
-  
   }
- 
+
   button {
     background: rgba(255, 255, 255, 0);
     outline: none;
@@ -289,17 +323,74 @@ display: grid;
     cursor: pointer;
   }
 }
-.add_task{
+.add_task {
   width: 100%;
   height: 40px;
-#addTask{
-  width: 100%;
-  height: 100%;
-  outline: none;
-  border: none;
-  background-color: rgba(255, 255, 255, 0);
-  text-indent: 30px;
-  color: rgb(0, 0, 0);
-  font-size: 1.3em;
+  #addTask {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+    text-indent: 30px;
+    color: rgb(0, 0, 0);
+    font-size: 1.3em;
+  }
+}
+@media only screen and (max-width: 768px) {
+  body {
+    display: grid;
+    grid-template-columns: 20vw 60vw 20vw;
+    grid-template-rows: 10vh 70vh 20vh;
+  }
+  main {
+    gap: 10px;
+    div:nth-of-type(2), div:nth-of-type(3) {
+      font-size: 18px;
+      text-wrap: balance;
+      text-align: center;
+    }
+    div:nth-of-type(4) {
+      width: 60%;
+      input {
+        width: 100%;
+        height: 30px;
+        font-size: 30px;
+      }
+    }
+    #timer {
+      font-size: 5em;
+    }
+  }
+  
+  footer{
+    padding: 10px;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+    grid-template-areas: "top top" "left right";
+    row-gap: 10px;
+    .setting{
+      grid-area: right;
+   
+    }
+    .tasks{
+      grid-area: left;
+    
+    }
+    .center{
+      grid-area: top;
+      padding: 10px;
 
-}}
+      
+    }
+    .setting, .tasks, .center{
+      text-align: center;
+    }
+  }
+  .Alltask{
+    transform: translateX(115%);
+    
+   
+
+  }
+}
