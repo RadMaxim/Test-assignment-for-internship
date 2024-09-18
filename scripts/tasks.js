@@ -29,10 +29,10 @@ const showAllTask = (arr) => {
 };
 window.addEventListener("load", () => {
   document.querySelectorAll(".removeTask").forEach((elem, index) => {
-    elem.addEventListener("click", (e) => {
+    elem.addEventListener("click", () => {
       elem.parentElement.remove();
       list_tasks.splice(index, 1);
-      console.log(list_tasks);
+
 
       localStorage.setItem("tasks", JSON.stringify(list_tasks));
     });

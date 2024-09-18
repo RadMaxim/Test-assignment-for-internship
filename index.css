@@ -370,7 +370,8 @@ section.center:hover .myName {
   main {
     gap: 10px;
   }
-  main div:nth-of-type(2), main div:nth-of-type(3) {
+  main div:nth-of-type(2),
+  main div:nth-of-type(3) {
     font-size: 18px;
     text-wrap: balance;
     text-align: center;
@@ -403,7 +404,9 @@ section.center:hover .myName {
     grid-area: top;
     padding: 10px;
   }
-  footer .setting, footer .tasks, footer .center {
+  footer .setting,
+  footer .tasks,
+  footer .center {
     text-align: center;
   }
   .Alltask {
