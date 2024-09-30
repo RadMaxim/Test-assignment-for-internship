@@ -1,5 +1,23 @@
 import { KEY_WEATHER, weatherBases } from "./private.js";
+const CACHE_DURATION = 60 * 60 * 1000;
+const weather = document.getElementById("weather");
+const state_weather = document.getElementById("state_weather");
 const getCurrentWeather = async (city) => {
+  const cacheKey = `weather_${city}`;
+  const cachedData = localStorage.getItem(cacheKey);
+
+  if (cachedData) {
+    const parsedData = JSON.parse(cachedData);
+    const currentTime = Date.now();
+    if (currentTime - parsedData.timestamp < CACHE_DURATION) {
+      console.log("Используется кешированные данные");
+      updateWeatherUI(parsedData.data);
+      return;
+    } else {
+      localStorage.removeItem(cacheKey);
+    }
+  }
+
   try {
     const url = new URL(weatherBases);
     url.searchParams.append("key", KEY_WEATHER);
@@ -12,17 +30,41 @@ const getCurrentWeather = async (city) => {
       },
     };
     const data = await fetch(url.toString(), option);
-    if (data.ok) {
-      const { current } = await data.json();
-      const { condition, temp_c } = current;
-      const { icon } = condition;
-      document.querySelector("#weather").innerHTML = temp_c;
-      document.querySelector("#state_weather").setAttribute("src", icon);
+    if (!data.ok) {
+      throw new Error("Problem of API");
     }
+    const dataJSON = await data.json();
+    let temperature = dataJSON?.current?.temp_c;
+    let icon = dataJSON?.current?.condition?.icon;
+    const weatherData = {
+      temperature,
+      icon,
+    };
+    updateWeatherUI(weatherData);
+    const cacheEntry = {
+      timestamp: Date.now(),
+      data: weatherData,
+    };
+    localStorage.setItem(cacheKey, JSON.stringify(cacheEntry));
   } catch {
-    if (1==1) 
-    console.error("Error fetching weather data: ");
-    document.querySelector("#weather").innerHTML = "Error loading weather data";
+    if (weather) {
+      weather.textContent = "Error loading weather data";
+    }
+  }
+};
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("loader").style.display = "none";
+  }, 500);
+});
+const updateWeatherUI = (weatherData) => {
+  const { temperature, icon } = weatherData;
+
+  if (weather) {
+    weather.textContent = temperature;
+  }
+  if (state_weather) {
+    state_weather.setAttribute("src", icon);
   }
 };
 export { getCurrentWeather };

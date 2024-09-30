@@ -10,24 +10,20 @@
 
   user-select: none;
 }
-/* width */
 ::-webkit-scrollbar {
   width: 10px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px rgb(184, 184, 184);
   border-radius: 10px;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: rgb(151, 151, 151);
   border-radius: 5px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #000000;
 }
@@ -54,6 +50,7 @@ main {
   padding: 0 15px;
 }
 body {
+  position: relative;
   display: grid;
   grid-template-columns: 20vw 60vw 20vw;
   grid-template-rows: 10vh 80vh 10vh;
@@ -134,7 +131,7 @@ footer {
     max-height: 300px;
     background-color: rgb(255, 255, 255);
     top: -320px;
-    left: -230px;
+    left: 0px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -180,7 +177,7 @@ footer {
     transition: 0.5s ease;
     opacity: 1;
     top: -320px;
-    left: -230px;
+    left: 0px;
   }
 }
 .setting {
@@ -227,16 +224,16 @@ nav {
   display: block;
 }
 .morning {
-  background: url("./img/back/02.jpg") no-repeat center center/cover;
+  background: url("./img/back/02 (1).jpg") no-repeat center center/cover;
 }
 .afternoon {
-  background: url("./img/back/03.jpg") no-repeat center center/cover;
+  background: url("./img/back/03 (1).jpg") no-repeat center center/cover;
 }
 .evening {
-  background: url("./img/back/04.jpg") no-repeat center center/cover;
+  background: url("./img/back/04 (1).jpg") no-repeat center center/cover;
 }
 .night {
-  background: url("./img/back/01.jpg") no-repeat center center/cover;
+  background: url("./img/back/01 (1).jpg") no-repeat center center/cover;
 }
 .left_link_section {
   text-align: center;
@@ -381,10 +378,41 @@ section.center:hover .myName {
       text-align: center;
     }
   }
-  .Alltask {
-    transform: translateX(115%);
-  }
+
   .add_date {
     right: 150px;
+  }
+}
+#loader {
+  z-index: 20;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    animation: load 1s ease infinite;
+  }
+}
+@keyframes load {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  10%,
+  90%,
+  30%,
+  70% {
+    transform: rotate(10deg);
+  }
+  20%,
+  80%,
+  40%,
+  60% {
+    transform: rotate(-10deg);
   }
 }

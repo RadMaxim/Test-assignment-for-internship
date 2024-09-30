@@ -33,7 +33,6 @@ window.addEventListener("load", () => {
       elem.parentElement.remove();
       list_tasks.splice(index, 1);
 
-
       localStorage.setItem("tasks", JSON.stringify(list_tasks));
     });
   });
